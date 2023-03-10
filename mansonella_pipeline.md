@@ -3,12 +3,11 @@
 - The scripts described here were run on a SGE / Grid Engine via qsub. 
 - All required software was installed using conda under various environments.
 
-## Authors:
+### Authors:
 - Amit Sinha (New England Biolabs, Ipswich, MA, US)
 
-
-1. Preprocessing of raw reads
-### Key goals
+### Task 1: Preprocessing of raw reads
+#### Key goals
 - "Clumpify" : remove optical duplicates
 - Removed bad tiles (e.g. in NextSeq data)
 - Trim adapters
@@ -16,14 +15,16 @@
 - Remove stretches of poly-G (poly-C on read2) which are an artefact of NextSeq and similar platforms
 - Remove reads from the human host
 - Run FatsQC 
-### Script(s) used :
-- sh.00.preprocess-NextSeq-reads.sh
+#### Script(s) used :
+- `sh.00.preprocess-NextSeq-reads.sh`
 
-
-2. Metagenomic assembly using Spades
+## Task 2: Metagenomic assembly using metaSpades
+### Key goals
+- Assemble all nematode and potential Wolbachia contigs
 ### Script(s) used :
 - sh.01.metaspades.sh
 
+## Task 3: Metagenomic assembly using metaSpades
 
 
 
