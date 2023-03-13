@@ -5,7 +5,7 @@
 #$ -pe smp 16 
 # To get an e-mail when the job is done:
 #$ -m e
-#$ -M asinha@neb.com
+#$ -M <useremail@server.com>
 # export all environment variables to SGE
 #$ -V
 
