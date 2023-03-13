@@ -21,12 +21,12 @@ NUMCPU=32;
 NUM_THREADS=64;
 MAX_RAM=376; # Max RAM on lcusyer = 376GB as per Tamas
 
-READS_PE12="mpe_Cam1.libs_combined.step06.human.r1r2.fq.gz";
+READS_PE12="mpe_Cam1.libs_combined.step06.no_human.r1r2.fq.gz";
 
 OUT_PREFIX="metagenome_mpe_Cam1";
 
-READS_PE1=$OUT_PREFIX"inputReads.r1.fq.gz";
-READS_PE2=$OUT_PREFIX"inputReads.r2.fq.gz";
+READS_PE1=$OUT_PREFIX".inputReads.r1.fq.gz";
+READS_PE2=$OUT_PREFIX".inputReads.r2.fq.gz";
 
 OUT_FOLDER="dir_"$OUT_PREFIX;
 OUT_FOLDER_QUAST=$OUT_DIR".quast";
