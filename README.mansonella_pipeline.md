@@ -12,9 +12,9 @@
 - Run the protocol `RS_PreAssembler.1`, parameters `minLen=1000, minQual=0.80, genomeSize=100000000` on PacBio SMRT Portal.
 
 #### Step 2: Remove host (human) reads
-- Map the consensus reads to the human genome (grch38) using minimap2 v2.17-r941. Use samtools to remoce reads that map to the human genome.
+- Map the consensus reads to the human genome (grch38) using minimap2 v2.17-r941. Use samtools to remove reads that map to the human genome.
 - Assemble the remaining reads canu v2.2 (Koren et al., 2017) with parameters `genomeSize=90m correctedErrorRate=0.045` 
-Script : `job-canu-pacbio.sh`
+- Script : `job-canu-pacbio.sh`
 
 
 #### Step 3: Assembly polishing using PacBio data only
@@ -29,8 +29,12 @@ Script : `job-canu-pacbio.sh`
 - Script: `job-polca.sh`
 
 #### Step 6: Gap-filling and heterozygosity removal 
-- Use teh polished assembly and Illumina reads as an input to the Redundans pipeline v0.14a. 
+- Use the polished assembly and Illumina reads as an input to the Redundans pipeline v0.14a. 
 - Script: `job-redundans.sh`
+
+#### Step 7: Blobplot analysis for binning assembled contigs by taxa of origin : Mansonella, Wolbachia, human, Others...
+- See scripts used for Illumina-only assemblies below.
+- Blobplot analysis showed that the PacBio assembly was free of non-Mansnella sequences.
 
 
 ## Illumina assemblies for Mpe-Cam-2, Moz-Brazil-1, Moz-Venz-1
@@ -55,7 +59,7 @@ Script : `job-canu-pacbio.sh`
 ### Script(s) used :
 - `job01.metaspades.sh`
 
-### Task 3: Blobplot analysis
+### Task 3: Blobplot analysis for binning assembled contigs by taxa of origin : Mansonella, Wolbachia, human, Others...
 ### Script(s) used : 
 - `job02.reads-to-assembly.sh`
 - `job03.blastn-assembly.sh`
@@ -68,19 +72,37 @@ Script : `job-canu-pacbio.sh`
 - `job07.redundans.sh`
 
 #### Task 5: Repeat Modeling and Masking
+- Identify repeat elements in across all assemblies
+- Combine all assemblies into one: `cat Mpe-Cam1.redundans.fasta Mpe-Cam2.redundans.fasta Moz-Brazil1.redundans.fasta Moz-Venz1.redundans.fasta > Mansonella.4assemblies.fasta`
+- Run the script `job08.RepeatModeler.sh`. Use the output `RMdb.Mansonella.4assemblies.fa` as the database for RepeatMasker in the next step.
+- Run the script `job09.RepeatMasket.sh`on each assembly. Make sure to turn the `softmasking` option on.
 
 #### Task 6: Gene predictions using BRAKER2 pipeline
-
+- Combine the softmasked genome assemblies from each isolate into one fasta file and use it for gene-prediction. This will ensure maximum possible consistency in the same BRAKER2 training parameters are used for annotating genes on each contig of each assembly.
+- Script `job10.braker2.sh`
+- Separate the gene-predictions for each isolate by parsing the `.gtf` file produced by braker2.
+- Script to use : `perl.separate-braker-genes.pl`
 
 ## Comparative genomic analysis
 
 #### 1. Jupiter  plots for genome-wide similarity and synteny
+- Script: `job11.jupiter-plot.sh`
+- Import the svg file into Adobe Illustrator for editing.
 
 #### 2. NucDiff analysis to study genetic variation across isolates and species
+- Script: `job12.nucdiff-run.sh`
+- Parse the NucDiff output to count local variants (SNVs, small insertions and deletions) in genomic subregions namely: (1) inside gene body (2) outside gene bodies (3) within introns (4) within exons
+- Use the VCF file produced by NucDiff as an input to snpEff on Galaxy server.
 
 #### 3. BUSCO Analysis
+- Collect proteomes of all relevant nematode species in a single folder (See Supplementray Table 1 of the manuscript for data sources)
+- Script : `job13.busco-on-proteomes.pl
+- Compile busco results into a single tsv file and plot together using the R script `r.busco-plot.R`
 
 #### 4. OrthoFinder Analysis
+- For each nematode being analyzed, select the longest transcript isoform for each gene. 
+- Usually gene annotations are from braker / augustus and multiple transcripts of a gene e.g. `g1` are named as `g1.t1`, `g1.t2` and so on.
+- Scripts: 
 
 #### 5. Phylogenomic analysis for nematodes
 
