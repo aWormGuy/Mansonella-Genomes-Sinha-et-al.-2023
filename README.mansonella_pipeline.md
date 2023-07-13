@@ -2,6 +2,9 @@
 
 - The scripts described here were run on a SGE / Grid Engine via qsub. 
 - All required software was installed using conda under various environments.
+- The assembled genomes are other results are described in the following paper:
+  - Sinha A, Li Z, Poole CB, Morgan RD, Ettwiller L, Lima NF, et al. Genomes of the human filarial parasites *Mansonella perstans* and *Mansonella ozzardi*. Frontiers in Tropical Diseases. 2023;4. [doi:10.3389/fitd.2023.1139343](https://dx.doi.org/10.3389/fitd.2023.1139343)
+
 
 ## Authors:
 - Amit Sinha (New England Biolabs, Ipswich, MA, US)
@@ -117,6 +120,9 @@
 
 
 ******
+## Citation
+Sinha A, Li Z, Poole CB, Morgan RD, Ettwiller L, Lima NF, et al. Genomes of the human filarial parasites *Mansonella perstans* and *Mansonella ozzardi*. Frontiers in Tropical Diseases. 2023;4. [doi:10.3389/fitd.2023.1139343](https://dx.doi.org/10.3389/fitd.2023.1139343)
+
 ## License
 Licensed as GNU General Public License v3.0. See LICENSE file in the root directory of this source tree.
 [![License](https://img.shields.io/github/license/aWormGuy/Mansonella-Genomes-Sinha-et-al.-2023)](https://opensource.org/license/gpl-3-0/)
